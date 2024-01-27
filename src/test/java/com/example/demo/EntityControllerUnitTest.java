@@ -2,7 +2,6 @@
 package com.example.demo;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -128,7 +126,7 @@ class DoctorControllerUnitTest {
         assertThat(doctor).isPresent();
         when(doctorRepository.findById(doctor.get().getId())).thenReturn(doctor);
         mockMvc.perform(delete("/api/doctors/" + doctor.get().getId()))
-                .andExpect(status().isOk());
+                .andExpect(status().is(HttpStatus.OK.value()));
     }
 
     @Test
@@ -333,7 +331,7 @@ class RoomControllerUnitTest {
         assertThat(room).isPresent();
         when(roomRepository.findByRoomName(room.get().getRoomName())).thenReturn(room);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/rooms/{roomName}", room.get().getRoomName()))
-                .andExpect(status().isOk());
+                .andExpect(status().is(HttpStatus.OK.value()));
     }
 
     @Test
